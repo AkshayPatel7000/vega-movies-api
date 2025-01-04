@@ -16,7 +16,7 @@ app.get('/', async (req, res) => {
     res.json({ status: true, message: 'Lets start' }); // Send the main page results
   } catch (error) {
     console.error('Error getting main page:', error);
-    res.status(500).json({ error: 'Failed to fetch main page data' });
+    res.status(500).json({ error: 'Failed to fetch main page data', error });
   }
 });
 
@@ -29,7 +29,7 @@ app.get('/movies/main', async (req, res) => {
     res.json(mainPageResults); // Send the main page results
   } catch (error) {
     console.error('Error getting main page:', error);
-    res.status(500).json({ error: 'Failed to fetch main page data' });
+    res.status(500).json({ error: 'Failed to fetch main page data', error });
   }
 });
 
@@ -46,7 +46,7 @@ app.get('/movies/search', async (req, res) => {
     res.json(searchResults); // Send search results
   } catch (error) {
     console.error('Error searching for movies:', error);
-    res.status(500).json({ error: 'Failed to search for movies' });
+    res.status(500).json({ error: 'Failed to search for movies', error });
   }
 });
 
@@ -63,7 +63,7 @@ app.get('/movies/load', async (req, res) => {
     res.json(movieDetails); // Send movie details
   } catch (error) {
     console.error('Error loading movie details:', error);
-    res.status(500).json({ error: 'Failed to load movie details' });
+    res.status(500).json({ error: 'Failed to load movie details', error });
   }
 });
 
