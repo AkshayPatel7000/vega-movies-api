@@ -16,7 +16,15 @@ class VegaMoviesProvider {
         ? `${this.mainUrl}/page/${page}`
         : `${this.mainUrl}/${type}/page/${page}`;
 
-    const response = await axios.get(url);
+    const response = await axios.get(url, {
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        'Accept-Language': 'en-US,en;q=0.9',
+        Accept:
+          'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+      },
+    });
 
     const $ = cheerio.load(response.data);
 
@@ -59,7 +67,15 @@ class VegaMoviesProvider {
     const searchResults = [];
 
     // for (let i = 1; i <= 7; i++) {
-    const response = await axios.get(`${this.mainUrl}/?s=${query}`);
+    const response = await axios.get(`${this.mainUrl}/?s=${query}`, {
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        'Accept-Language': 'en-US,en;q=0.9',
+        Accept:
+          'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+      },
+    });
     console.log(
       '🚀 ~ file: index.js:67 ~ VegaMoviesProvider ~ search ~ response:',
       response
@@ -144,7 +160,15 @@ class VegaMoviesProvider {
     return episodeLinks; // Return the result after all async operations are complete
   }
   async load(url) {
-    const response = await axios.get(url);
+    const response = await axios.get(url, {
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        'Accept-Language': 'en-US,en;q=0.9',
+        Accept:
+          'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+      },
+    });
     const $ = cheerio.load(response.data);
 
     let title = $('meta[property=og:title]')
@@ -160,7 +184,16 @@ class VegaMoviesProvider {
     const tvType = description.includes('Series') ? 'series' : 'movie';
 
     const jsonResponse = await axios.get(
-      `${this.cinemetaUrl}/${tvType}/${imdbId}.json`
+      `${this.cinemetaUrl}/${tvType}/${imdbId}.json`,
+      {
+        headers: {
+          'User-Agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+          'Accept-Language': 'en-US,en;q=0.9',
+          Accept:
+            'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+        },
+      }
     );
     const responseData = jsonResponse.data;
 
