@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const VegaMoviesProvider = require('./index'); // Assuming you have the class in VegaMoviesProvider.js
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 4000;
 
 // Instantiate the VegaMoviesProvider class
 const provider = new VegaMoviesProvider();
