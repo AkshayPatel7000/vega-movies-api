@@ -11,7 +11,7 @@ const provider = new VegaMoviesProvider();
 // Middleware to parse incoming requests with JSON payloads
 app.use(bodyParser.json());
 // Route to get the main page with movies
-app.get('/movies', async (req, res) => {
+app.get('/', async (req, res) => {
   try {
     res.json({ status: true, message: 'Lets start' }); // Send the main page results
   } catch (error) {
