@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= movie.title %> - Video Player
+    </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+        }
+
+        .video-container {
+            position: relative;
+            max-width: 100%;
+            height: 100vh;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            border: 2px solid #fff;
+        }
+
+        .controls {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .audio-tracks {
+            margin-top: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .controls button,
+        .audio-tracks select {
+            background: #f39c12;
+            border: none;
+            padding: 10px;
+            margin: 5px;
+            color: white;
+            font-size: 16px;
+        }
+
+        .controls button:hover,
+        .audio-tracks select:hover {
+            background: #e67e22;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="video-container">
+        <video id="videoPlayer" controls autoplay>
+            <source src="<%= videoUrl %>" type="video/mp4">
+            </source>
+            Your browser does not support the video tag.
+        </video>
+
+        <div class="audio-tracks">
+            <select id="audioTrackSelector">
+                <option value="">Select Audio Track</option>
+                <!-- Audio tracks will be dynamically populated -->
+            </select>
+        </div>
+    </div>
+
+    <script>
+
+        const video = document.getElementById('videoPlayer');
+
+        // Check for audio tracks when video metadata is loaded
+        video.addEventListener('loadedmetadata', () => {
+            const audioTracks = video.audioTracks;
+
+            if (audioTracks) {
+                for (let i = 0; i < audioTracks.length; i++) {
+                    const option = document.createElement('option');
+                    option.value = i;
+                    option.text = audioTracks[i].label || `Audio Track ${i + 1}`;
+                    audioTrackSelector.appendChild(option);
+                }
+            } else {
+                audioTrackSelector.style.display = 'none';
+            }
+        });
+
+        // Event listener for audio track selection
+        audioTrackSelector.addEventListener('change', (e) => {
+            const selectedTrackIndex = e.target.value;
+            const audioTracks = video.audioTracks;
+
+            if (audioTracks) {
+                for (let i = 0; i < audioTracks.length; i++) {
+                    audioTracks[i].enabled = (i == selectedTrackIndex);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
